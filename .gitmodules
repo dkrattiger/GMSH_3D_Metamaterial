@@ -1,0 +1,6 @@
+[submodule "libraries/BMS"]
+	path = libraries/BMS
+	url = https://github.com/dkrattiger/BMS.git
+[submodule "libraries/FEM"]
+	path = libraries/FEM
+	url = https://github.com/dkrattiger/FEM.git
