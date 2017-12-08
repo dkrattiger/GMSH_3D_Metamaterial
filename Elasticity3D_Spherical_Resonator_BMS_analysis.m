@@ -418,7 +418,7 @@ end
 %% Sort Dispersion Branches
 % ======================================================================= %
 
-no_flat_lines = false;
+no_flat_lines = true;
 
 PHI_full_sorted = PHI_full;
 f_full_sorted = f_full;
@@ -603,7 +603,6 @@ xlabel('wave vector');ylabel('frequency (Hz)');zlabel('mode_error');
 Bs = zeros(6,3*n^3,n^3,n_elements);
 
 for i = 1:n_elements
-    i
     coords_ele = coordinates(element_node_table(i,:),:);
     Bs(:,:,:,i) = element_BMatrix_3DE(n,coords_ele);
 end
@@ -855,7 +854,7 @@ end
 
 %% Evaluate BMS AMLS+ LIR Reduction
 % ======================================================================= %
-eval_BMS = false;
+eval_BMS = true;
 if eval_BMS
     
     f_full_fsort = sort(f_full);
@@ -987,7 +986,7 @@ if eval_BMS
             else
 
                 %[K_BMSpl,M_BMSpl,dof_sets_BMSpl,t_up_front_plus_save(i,j),T_BMS_plus] = BMS_plus(K_free,M_free,coordinates,R,opts_BMS);
-                [K_BMS,M_BMS,dof_sets_BMS,t_up_front_BMS,T_BMS_temp] = BMS(K_free,M_free,coordinates,R,options_BMS);
+                [K_BMS,M_BMS,dof_sets_BMS,info_BMS,T_BMS_temp] = BMS(K_free,M_free,coordinates,R,options_BMS);
                 %[K_BMS,M_BMS,dof_sets_BMS,t_up_fronts(k,i,j)] = BMS(K_free,M_free,coordinates,R,options_BMS);
 
                 % compute BMS dispersion
@@ -1007,7 +1006,7 @@ if eval_BMS
             f_BMS_save{k,j} = f_BMS;
             PHI_BMS_save{k,j} = PHI_BMS;
             t_kloop_BMSs(k,j,:) = t_kloop_BMS;
-            t_up_fronts(k,j) = t_up_front_BMS;
+            t_up_fronts(k,j) = info_BMS.t_up_front;
 
             % timing data
             t_BMSs(k,j) = sum(t_kloop_BMSs(k,j,:)) + t_up_fronts(k,j);
