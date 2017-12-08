@@ -9,12 +9,12 @@ format shortg
 warning off all
 tic
 
-addpath(genpath('Global_Files'))
+addpath(genpath('libraries'))
 
 %% Check for & Create Save directories
 % ======================================================================= %
 
-save_results = false;
+save_results = true;
 load_results = true;
 
 % if save_data folder does not exist, make it
@@ -356,7 +356,7 @@ if do_BMS
 
     % perform BMS reduction 
     % [K_BMSpl,M_BMSpl,dof_sets_BMS,t_up_front_plus,T_BMS] = BMS_plus(K_free,M_free,coordinates,w_cut*0.5,R,n_FI,n_LI);
-    [K_BMS,M_BMS,dof_sets_BMS,t_up_front,T_BMS] = BMS(K_free,M_free,coordinates,R,options_BMS);
+    [K_BMS,M_BMS,dof_sets_BMS,info_BMS,T_BMS] = BMS(K_free,M_free,coordinates,R,options_BMS);
 
     % solve for dispersion
     [w_BMS,PHI_BMS,t_kloop_BMS] = dispersion_solver_w_k(kappa,K_BMS,M_BMS,dof_sets_BMS,R,n_curves);
@@ -372,7 +372,7 @@ if do_BMS
     e_freq_max2 = max(max(e_freq2(f_full>tol*max(max(f_full)))))
     % pause
 
-    t_BMS = sum(t_kloop_BMS) + t_up_front
+    t_BMS = sum(t_kloop_BMS) + info_BMS.t_up_front
 
     t_full = sum(t_kloop_full)
    
