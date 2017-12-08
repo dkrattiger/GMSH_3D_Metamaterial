@@ -1,5 +1,6 @@
 save_data/
+old_saves/
+figures/
 .DS_Store
 ReadMe
-old_saves/
 *.m~

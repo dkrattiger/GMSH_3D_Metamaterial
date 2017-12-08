@@ -17,33 +17,25 @@ addpath(genpath('libraries'))
 save_results = true;
 load_results = true;
 
-% if save_data folder does not exist, make it
+% if save_data folder does not exist, make it. Should do a check of whether
+% these directories exist first, but Matlab's "exist" function has bugs so
+% it often doesn't work.
 if save_results
     
     % make save_data directory
-    if ~exist('save_data','dir')
-        mkdir('save_data');
-    end
+    mkdir('save_data');
     
     % make save_data/models subdirectory
-    if ~exist('save_data/models','dir')
-        mkdir('save_data/models');
-    end
+    mkdir('save_data/models');
     
     % make save_data/solutions subdirectory
-    if ~exist('save_data/solutions','dir')
-        mkdir('save_data/solutions');
-    end
+    mkdir('save_data/solutions');
     
     % make save_data/BMS_solutions subdirectory
-    if ~exist('save_data/BMS_solutions','dir')
-        mkdir('save_data/BMS_solutions');
-    end
+    mkdir('save_data/BMS_solutions');
     
     % make figures directory
-    if ~exist('figures','dir')
-        mkdir('figures');
-    end
+    mkdir('figures');
     
 end
 
